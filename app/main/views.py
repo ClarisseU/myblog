@@ -34,7 +34,7 @@ def nu_blog():
     return render_template('nu_blog.html', title= title,blog_form=form, blog = blog)
 
 #viewing a pitch with it's comments
-@main.route('blog/view_blog/<int:id>', methods =['GET', 'POST'])
+@main.route('/blog/view_blog/<int:id>', methods =['GET', 'POST'])
 def view_blog(id):
     '''
     a function to view existing blogs

@@ -6,22 +6,18 @@ from . import login_manager
 from datetime import datetime
 
 @login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
+def load_user(blogger_id):
+    return Blogger.query.get(int(blogger_id))
 
 class Blogger(UserMixin,db.Model):
     '''
     Blogger class to define writter objects
     '''
     __tablename__ = 'blogger'
-    MAIL_USERNAME = os.environ.get("MAIL_USERNAME")
-    MAIL_PASSWORD = os.environ.get("MAIL_PASSWORD")
-    
-    # simple mde  configurations
-    SIMPLEMDE_JS_IIFE = True
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255),unique = True,index = True)
+    password_hash = db.Column(db.String(255))
     password_secure = db.Column(db.String(255))
     blogz=db.relationship('Blog',backref= 'blogger',lazy='dynamic')
     # blog_id = db.Column(db.Integer, db,ForeignKey(blog.id))
@@ -49,10 +45,13 @@ class Blog(db.Model):
     id = db.Column(db.Integer,primary_key = True)
     title = db.Column(db.String(255))
     post = db.Column(db.String(255))
-    posted = db.Column(db.datetime, default =datetime.utcnow)
-    blogger_id = db.Column(db.Integer, db.ForeignKey('blogger_id')  
-    
+    posted = db.Column(db.DateTime, default =datetime.utcnow)
+    blogger_id = db.Column(db.Integer, db.ForeignKey('blogger.id'))   
+                                      
     def save_blogz(self):
+        '''
+        function to save blogs
+        '''
         db.session.add(self)
         db.session.commit()
         
@@ -60,7 +59,7 @@ class Blog(db.Model):
     def clear_bog(cls):
         Blog.all_blogs.clear()    
         
-    def get_blog(cls):
+    def get_blog(id):
         blog = Blog.query.filter_by().all_blogs
         return blog
     
@@ -84,5 +83,8 @@ class Comments(db.Model):
         
     @classmethod
     def get_comments(self,id):
+        '''
+        function to get the comment
+        '''
         comment = Comments.query.filter_by(blog_id = id).all()
         return comment        

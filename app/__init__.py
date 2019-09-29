@@ -8,6 +8,7 @@ from flask_mail import Mail
 from flask_simplemde import SimpleMDE
 
 bootstrap = Bootstrap()
+db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
@@ -35,8 +36,8 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     # setting config
-    from .requests import configure_request
-    configure_request(app)
+    # from .requests import configure_request
+    # configure_request(app)
     
     # configure UploadSet
     configure_uploads(app,photos)
