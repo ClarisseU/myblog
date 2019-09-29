@@ -1,15 +1,31 @@
-from flask_script import Manager,Server
 from app import create_app
+from flask_script import Manager,Server
+from app.models import Blog,Blogger,Comments
+from flask_script import Manager,socketserver
+from flask_migrate import Migrate, MigrateCommand
 
-#Creating app instance
+# Creating app instance
 app = create_app('development')
 
 manager = Manager(app)
 manager.add_command('server',Server)
 
+migrate = Migrate(app,db)
+manager.add_command('db',MigrateCommand)
 
-@manager.shell
+manager.shell
 def make_shell_context():
-    return dict(app = app)
+    return dict(app = app,db = db,Blogger = Blogger,Blog = Blog,Comments = Comments)
+
+@manager.command
+def test():
+    """
+    Run the unit tests.
+    """
+    import unittest
+    tests = unittest.TestLoader().discover('tests')
+    unittest.TextTestRunner(verbosity=2).run(tests)
+
+
 if __name__ == '__main__':
     manager.run()
