@@ -1,0 +1,13 @@
+{% extends 'base.html'%} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
+<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Vollkorn+SC&display=swap" rel="stylesheet">
+<div class="container col-md-6" style="text-align:center;font-family: 'Archivo Narrow', sans-serif;color:black">
+    <h3>{{blog.name|upper}} blog</h3>
+    <div class="well">
+        <hr> {{wtf.quick_form(blog_form)}}
+    </div>
+    <div class="col-md-4">
+
+    </div>
+</div>
+
+{% endblock %}

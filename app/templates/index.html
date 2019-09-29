@@ -1,0 +1,23 @@
+{% extends "base.html" %} {% import 'macros.html' as macro %}{% block styles %}{{super()}}
+<!--super() function tells Jinja not to override any code that is defined in the block-->
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %}
+<br> {% block content %}
+<div>
+    <div class="container-fluid" style="font-family: 'Lato', sans serif;">
+        <div class="row">
+
+            <div class="container" id="block-text">
+                <br>
+                <div class="col-md-6">
+                </div>
+
+
+                <br>
+                <div class="col-md-6">
+                    <p style="font-size: 20px; float:left;"> <strong> In life you only have 60 seconds to impress someone. One minute to make or break you. How do we make sure that you use your one minute to actually say something meaningful ? </strong> </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}
