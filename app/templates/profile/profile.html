@@ -1,0 +1,2 @@
+{% extends 'base.html'%} {% block content %} {{user.username| capitalize}} {% if user.bio %} {{user.bio}} {%else%} {{user.username| capitalize}} has no bio {% endif %} {% if user.profile_pic_path %} {%else%} No profile picture {% endif %} {% if user ==
+current_user %} {% endif %} {% endblock %}
