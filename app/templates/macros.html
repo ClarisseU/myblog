@@ -1,8 +1,8 @@
 {% macro displayBlogList(blog_list) %} {% for blog in blog_list %}
 <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 movie-card">
-    <img src="{{ blog.id }}" alt="{{ blog.title }} category" class="img-responsive">
+    <!-- <img src="{{ blog.content }}" alt="{{ blog.content }} category" class="img-responsive"> -->
     <li class="text-center">
-        <a href="/blog/view_blog/{{blog.content}}">
+        <a href="{{blog.content}}">
             {{ blog.content}}</a>
     </li>
 </div>
