@@ -10,18 +10,20 @@
                 <br>
                 <br>
                 <div class="col-md-6">
-                    <p style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts that i have include which inspires me and i thought i can share it with you, feel free to naviguate all around and leave some comments! </strong>
+                    <p style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share it with you, feel free to naviguate through and leave some comments! </strong>
                 </div>
             </div>
         </div>
         <div class='row'>
             <p>
-                {{macro.displayBlogList(blog_list)}}
+                {{macro.displayBlogList(blog_list)}} {% for blog in blog_list %} {{blog.blogz}} {% endfor %}
             </p>
             <ul class="border-border-danger">
-                <li><a href="">View blogs</a></li>
+                <li><a href="/blog/view_blog/">View blogs</a></li>
                 <li><a href="">leave a comment</a></li>
             </ul>
+
+            <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
         </div>
     </div>
     {% endblock%}
