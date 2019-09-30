@@ -87,4 +87,14 @@ class Comments(db.Model):
         function to get the comment
         '''
         comment = Comments.query.filter_by(blog_id = id).all()
-        return comment        
+        return comment      
+    
+class Quote:
+    '''
+    class quote to define quote Objects
+    '''
+    def __init__(self, id, author,quote):
+        self.id = id
+        self.author = author
+        self.quote = quote    
+      

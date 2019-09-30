@@ -12,7 +12,7 @@ db = SQLAlchemy()
 login_manager = LoginManager()
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'auth.login'
-photos = UploadSet('photo',IMAGES)
+# photos = UploadSet('photo',IMAGES)
 mail = Mail()
 simple = SimpleMDE()
 
@@ -36,11 +36,11 @@ def create_app(config_name):
     app.register_blueprint(main_blueprint)
 
     # setting config
-    # from .requests import configure_request
-    # configure_request(app)
+    from .requests import configure_request
+    configure_request(app)
     
     # configure UploadSet
-    configure_uploads(app,photos)
+    # configure_uploads(app,photos)
     
     #...
     from .auth import auth as auth_blueprint

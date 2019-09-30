@@ -3,7 +3,7 @@ from . import main
 from flask_login import login_required, current_user
 from ..models import Blogger, Blog, Comments
 from .forms import UpdateProfile,BlogForm, CommentForm
-from .. import db, photos
+from .. import db
 import markdown2
 
 #views
