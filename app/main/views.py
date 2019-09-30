@@ -20,12 +20,13 @@ def index():
 #adding a new blog
 @main.route('/add/blog', methods=['GET', 'POST'])
 @login_required
-def nu_blog(id):
+def nu_blog():
     '''
     function to insert or add new blog and fetch data from them
     '''
     form = BlogForm
-    blog = Blog.query.filter_by(id=id).first()
+    blog = Blog.query.filter_by(id= current_user.id).all()
+    blogger = blogger.query.filter_by(id = current_user.id).first()
     title = f'Welcome To Blogs'
     
     # if blog is None:
