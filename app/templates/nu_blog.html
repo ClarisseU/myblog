@@ -1,12 +1,40 @@
-{% extends 'base.html'%} {% import "bootstrap/wtf.html" as wtf %} {% block content %}
-<link href="https://fonts.googleapis.com/css?family=Archivo+Narrow|Vollkorn+SC&display=swap" rel="stylesheet">
-<div class="container col-md-6" style="text-align:center;font-family: 'Archivo Narrow', sans-serif;color:black">
-    <div class="well">
-        <hr> {{wtf.quick_form(blog_form)}}
-    </div>
-    <div class="col-md-4">
+{% extends "base.html" %} {% block content %}
+<div class='container-fluid'>
+    {{ macro.displayBlogList(blog_list)}} {% for blog in blog_list %}
+    <div class="col-md-12">
+        <div class="well">
+            <div class="row">
+                <p>{{blog.name|upper}}</p>
+                </a>
+                <div class="col-md-10 col-sm-12">
+                    <h3>{{blog.content}}</h3>
+                    <p>{{blog.posted}}</p>
+                    <p>{{blog.blogz}}</p>
+
+                </div>
+            </div>
+        </div>
 
     </div>
+    {% endfor %}
+    <div class="">
+        {{wtf.quick_form(comment_form)}}
+    </div>
+    <div class="container">
+        <p style="font-size:3em;margin-left:-30vw;color:black;text-decoration: underline">Your Comments</p>
+        {% for com in comment %}
+        <div class="card">
+            <div class="row">
+                <div class="card-body">
+                    <ul>
+                        <li class="card-text">{{com.comment}}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
 </div>
 
 {% endblock %}

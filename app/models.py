@@ -98,5 +98,12 @@ class Quote:
     def __init__(self, id, author,quote):
         self.id = id
         self.author = author
-        self.quote = quote    
+        self.quote = quote 
+        
+class Subscribe(db.Model):
+    __tablename__='subscribe'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    email = db.Column(db.String(255))
+    posted = db.Column(db.DateTime, default = datetime.utcnow)           
       

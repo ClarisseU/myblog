@@ -1,19 +1,22 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from flask_login import login_required, current_user
-from ..models import Blogger, Blog, Comments
-from .forms import UpdateProfile,BlogForm, CommentForm
+from ..models import Blogger, Blog, Comments, Subscribe
+from .forms import UpdateProfile,BlogForm, CommentForm,SubscribeForm
 from .. import db
 import markdown2
 
 #views
 @main.route('/')
-@login_required
 def index():
     '''
     view root page function that returns the index page and its data
     '''
-
+    form = BlogForm()
+    
+    if form.validate_on_submit:
+        title = form.title.data
+        content = form.content.data
     blog = Blog.query.all()
     return render_template('index.html', current_user = current_user,blog=blog)
 
@@ -24,20 +27,21 @@ def nu_blog():
     '''
     function to insert or add new blog and fetch data from them
     '''
-    form = BlogForm
-    blog = Blog.query.filter_by(id= current_user.id).all()
-    blogger = blogger.query.filter_by(id = current_user.id).first()
+    form = BlogForm()
+    # blog = Blog.query.filter_by(id= current_user.id).all()
+    # blogger = blogger.query.filter_by(id = current_user.id).first()
     title = f'Welcome To Blogs'
     
     # if blog is None:
     #     abort(404)
     
     if form.validate_on_submit():
+        title = form.title.data
         content = form.content.data
-        nu_blog = Blog(content=content,blog = blog.id, blog_id = current_user.id,)
+        nu_blog = Blog(title = title, content=content, blog_id = current_user.id,)
         nu_blog.save_blogz()
-        return redirect(url_for(',index', id=blog.id))
-    return render_template('nu_blog.html', title= title,blog_form=form, blog = blog)
+        return redirect(url_for(',index'))
+    return render_template('blog.html', title= title,blog_form=form, blog = blog)
 
 #viewing a pitch with it's comments
 @main.route('/blog/view_blog/<int:id>', methods =['GET', 'POST'])
@@ -114,3 +118,18 @@ def new_comment(id):
         new_comment.save_comment()
         return redirect(url_for('.index',uname=current_user.username))
     return render_template('comment.html', title = title, comment_form = form,blogs=blogs)
+
+@main.route('/subscribe', methods = ['GET','POST'])
+def subscribe():
+    form = SubscribeForm
+    
+    if form.validate_on_submit():
+        email = form.email.data
+        date = form.date.data
+        
+        nu_sub = Subscribe(email=email, date=date, user_id=current_user.id)
+        
+        nu_sub.save_sub()
+        return redirect(url_for('sub'))
+    
+    return render_template('index.html', title= title, subscribe_form=form)
