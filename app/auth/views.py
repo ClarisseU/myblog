@@ -1,9 +1,9 @@
-from flask import render_template,redirect,url_for
+from flask import render_template,redirect,url_for,flash, request
 from . import auth
 from .forms import RegistrationForm,LoginForm
 from .. import db
 from ..models import Blogger
-from flask_login import login_user,logout_user,login_required
+from flask_login import login_user,logout_user,login_required, current_user
 from ..email import mail_message
 
 @auth.route('/login',methods=['GET','POST'])
@@ -14,7 +14,7 @@ def login():
     login_form = LoginForm()
     if login_form.validate_on_submit():
         blogger = Blogger.query.filter_by(email = login_form.email.data).first()
-        if user is not None and user.verify_password(login_form.password.data):
+        if blogger is not None and blogger.verify_password(login_form.password.data):
             login_user(blogger,login_form.remember.data)
             return redirect(request.args.get('next') or url_for('main.index'))
 
@@ -40,7 +40,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         blogger = Blogger(email = form.email.data, username = form.username.data,password = form.password.data)
-        db.session.add(user)
+        db.session.add(blogger)
         db.session.commit()
 
         mail_message("Welcome to My blog","email/welcome_user",blogger.email,blogger=blogger)

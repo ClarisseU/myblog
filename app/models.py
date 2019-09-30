@@ -1,26 +1,27 @@
 from . import db
 from  flask_migrate import Migrate, MigrateCommand
 from werkzeug.security import generate_password_hash,check_password_hash
-from flask_login import UserMixin
+from flask_login import UserMixin, current_user
 from . import login_manager
 from datetime import datetime
 
 @login_manager.user_loader
-def load_user(blogger_id):
-    return Blogger.query.get(int(blogger_id))
+def load_user(user_id):
+    return Blogger.query.get(int(user_id))
 
 class Blogger(UserMixin,db.Model):
     '''
     Blogger class to define writter objects
     '''
     __tablename__ = 'blogger'
+    
     id = db.Column(db.Integer,primary_key = True)
     username = db.Column(db.String(255),index = True)
     email = db.Column(db.String(255),unique = True,index = True)
     password_hash = db.Column(db.String(255))
     password_secure = db.Column(db.String(255))
     blogz=db.relationship('Blog',backref= 'blogger',lazy='dynamic')
-    # blog_id = db.Column(db.Integer, db,ForeignKey(blog.id))
+    
 
     @property
     def password(self):
@@ -28,11 +29,11 @@ class Blogger(UserMixin,db.Model):
 
     @password.setter
     def password(self, password):
-        self.pass_secure = generate_password_hash(password)
+        self.password_secure = generate_password_hash(password)
 
 
     def verify_password(self,password):
-        return check_password_hash(self.pass_secure,password)
+        return check_password_hash(self.password_secure,password)
     
     def __repr__(self):
         return f'Blogger {self.username}'
@@ -47,6 +48,7 @@ class Blog(db.Model):
     post = db.Column(db.String(255))
     posted = db.Column(db.DateTime, default =datetime.utcnow)
     blogger_id = db.Column(db.Integer, db.ForeignKey('blogger.id'))   
+    comment = db.relationship ('Comments', backref ='blog')
                                       
     def save_blogz(self):
         '''
@@ -71,8 +73,8 @@ class Comments(db.Model):
     __tablename__='comments'
     id = db.Column(db.Integer, primary_key = True)
     feedback = db.Column(db.String)
-    blogger_id = db.Column(db.Integer, db.ForeignKey('blogger_id'))
-    blog_id = db.Column(db.Integer, db.ForeignKey('blog_id'))    
+    blogger_id = db.Column(db.Integer, db.ForeignKey('blogger.id'))
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))    
     
     def save_comment(self):
         '''
@@ -86,12 +88,12 @@ class Comments(db.Model):
         '''
         function to get the comment
         '''
-        comment = Comments.query.filter_by(blog_id = id).all()
+        comment = Comments.query.filter_by().all()
         return comment      
     
 class Quote:
     '''
-    class quote to define quote Objects
+    class quote to define quote's Objects
     '''
     def __init__(self, id, author,quote):
         self.id = id
