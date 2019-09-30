@@ -1,7 +1,7 @@
 {% extends "base.html" %} {% import 'macros.html' as macro %}{% block styles %}{{super()}}
 <!--super() function tells Jinja not to override any code that is defined in the block-->
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %}
-<br> {% block content %}
+<br> {% block content %}{{macro.displayBlogList(blog_list)}}
 <div>
     <div class="container-fluid" style="font-family: 'Lato', sans serif;">
         <div class="row">
@@ -10,11 +10,33 @@
                 <br>
                 <br>
                 <div class="col-md-6">
-                    <p style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share it with you, feel free to naviguate through and leave some comments! </strong>
+                    <p style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share them with you, feel free to naviguate through and leave some comments! </strong>
                 </div>
             </div>
         </div>
+
+        <div class="container">
+            <div class="content">
+                <h3>POSTS</h3>
+                {{macro.displayBlogList(blog)}} {% for blog in blog_list %}
+                <li>{{blog.post}}</li>
+                <p><a href="/blog/view_blog/{{blog.id}}">check..</a></p>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="container">
+            <!-- <p> {{macro.displayBlogList(blog_list)}} {% for blog in blog_list %} {{blog.blogz}} {% endfor %}</p> -->
+            <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
+        </div>
         <div class='row'>
+            <div class='col-md-6'>
+                {% for blog in blog_list %} {{blog.blogz}} {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endblock%}
+
+    <!-- <div class='row'>
             <p>
                 {{macro.displayBlogList(blog_list)}} {% for blog in blog_list %} {{blog.blogz}} {% endfor %}
             </p>
@@ -24,15 +46,4 @@
             </ul>
 
             <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
-        </div>
-        <div class="container">
-            <div class="content">
-                <h3>POSTS</h3>
-                {% for blog in blog_list %}
-                <li>{{blog.title}}</li>
-                <p><a href="/blogs/{{blog.id}}">check..</a></p>
-
-            </div>
-        </div>
-    </div>
-    {% endblock%}
+        </div> -->

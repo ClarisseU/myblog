@@ -9,7 +9,7 @@ class UpdateProfile(FlaskForm):
    
 #blog form    
 class BlogForm(FlaskForm):
-    content = TextAreaField('Post a blog', validators=[Required()])
+    post = TextAreaField('Post a blog', validators=[Required()])
     submit = SubmitField('submit Blog')  
     
 #Comment Form

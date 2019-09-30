@@ -15,8 +15,8 @@ def index():
     form = BlogForm()
     
     if form.validate_on_submit:
-        title = form.title.data
-        content = form.content.data
+        # content = form.content.data
+        post = form.post.data
     blog = Blog.query.all()
     return render_template('index.html', current_user = current_user,blog=blog)
 
@@ -28,19 +28,20 @@ def nu_blog():
     function to insert or add new blog and fetch data from them
     '''
     form = BlogForm()
-    # blog = Blog.query.filter_by(id= current_user.id).all()
+    blog = Blog.query.filter_by(id= current_user.id).all()
+    post = Blog.query.filter_by(id = current_user.id).first()
     # blogger = blogger.query.filter_by(id = current_user.id).first()
     title = f'Welcome To Blogs'
     
-    # if blog is None:
-    #     abort(404)
+    if blog is None:
+        abort(404)
     
     if form.validate_on_submit():
-        title = form.title.data
-        content = form.content.data
-        nu_blog = Blog(title = title, content=content, blog_id = current_user.id,)
+        # title = form.title.data
+        post = form.post.data
+        nu_blog = Blog( post=post)
         nu_blog.save_blogz()
-        return redirect(url_for(',index'))
+        return redirect(url_for('main.index'))
     return render_template('blog.html', title= title,blog_form=form, blog = blog)
 
 #viewing a pitch with it's comments
