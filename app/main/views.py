@@ -87,15 +87,19 @@ def delete_blog(id):
 @main.route('/profile/update/<int:id>', methods = ['GET','POST'])
 @login_required
 def update_blog(id):
-    bloggers = Blog.query.filter_by(id=id).first()
-    
-    blogger = current_user
+    blogs = Blog.query.filter_by(id=id).first()
+    form = BlogForm()
+    # blogger = current_user
     if form.validate_on_submit():
-        bloggers.title = form.title.data
-        bloggers.
-        db.session.add(bloggers)
+        blogs.title = form.title.data
+        blogs.content
+        db.session.add(blogs)
         db.session.commit()
-    return redirect(url_for('.profile'))    
+        flash('Your post has been updated')
+        return redirect(url_for('.profile', id =id))
+    return render_template('profile/update.html', form = form,blog=blog)
+
+    
           
  
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
