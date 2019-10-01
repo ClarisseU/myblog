@@ -13,31 +13,35 @@
                     <p class="jumbotron" style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share them with you, feel free to naviguate through and leave some comments! </strong>
                 </div>
             </div>
-        </div>
 
-        <div class="container">
-            <div class="card" style="border-style: solid; color:rgb(247, 159, 174)">
-                <p style="color:black">{{kote.kote}}</p>
-                <p style="color:black">{{kote.author}}</p>
+
+            <div class="container">
+                <div style="border-style: solid; color:rgb(247, 159, 174)">
+                    <p style="color:black">{{kote.quote}}</p>
+                    <p style="color:black">{{kote.author}}</p>
+                </div>
             </div>
-            <div class="content">
-                <h3><strong>POSTS</strong></h3>
-                {{macro.displayBlogList(blog)}}
-            </div>
-        </div>
-        <div class="container">
-            <!-- <p> {{macro.displayBlogList(blog_list)}} {% for blog in blog_list %} {{blog.blogz}} {% endfor %}</p> -->
-            <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
-        </div>
-        <div class='row'>
-            <div class='col-md-6'>
-                {{wtf.quick_form(subscribe_form)}}
+            <div class="container">
+                <div class="content">
+                    <h3><strong>POSTS</strong></h3>
+                    {{macro.displayBlogList(blog)}}
+
+                </div>
             </div>
         </div>
     </div>
-    {% endblock%}
+    <div class="container">
+        <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
+    </div>
+    <div class='row'>
+        <div class='col-md-6'>
+            {{wtf.quick_form(subscribe_form)}}
+        </div>
+    </div>
+</div>
+{% endblock%}
 
-    <!-- <div class='row'>
+<!-- <div class='row'>
             <p>
                 {{macro.displayBlogList(blog_list)}} {% for blog in blog_list %} {{blog.blogz}} {% endfor %}
             </p>

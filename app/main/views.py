@@ -16,7 +16,7 @@ def index():
     
     blog = Blog.query.all()
     form = SubscribeForm()
-    kote = getQuotes()
+    quote = getQuotes()
     
     if form.validate_on_submit():
         email = form.email.data
@@ -27,7 +27,7 @@ def index():
         nu_sub.save_sub()
         return redirect(url_for('sub'))
         
-    return render_template('index.html',blog=blog, subscribe_form=form, kote = kote)
+    return render_template('index.html',blog=blog, subscribe_form=form, kote = quote)
 
 #adding a new blog
 @main.route('/add/blog', methods=['GET', 'POST'])
@@ -117,17 +117,18 @@ def new_comment(id):
     function that add comments
     '''
     form = CommentForm()
-    comment = Comment.query.filter_by(pitch_id=id).all()
-    blogs = Blog.query.filter_by(id=id).first()
-    user = Blogger.query.filter_by(id = id).first()
+    blogs = Blog.query.get(id)
+    comment = Comments.query.filter_by(id=current_user.id).all()
+    
+    user = Blogger.query.filter_by().first()
     title=f'welcome to blogs comments'
         
     if form.validate_on_submit():
-        feedback = form.comment.data
-        new_comment= Comment(feedback=feedback,user_id=current_user.id,blog_id=blogs.id)
+        feedback = form.feedback.data
+        new_comment= Comments(feedback=feedback)
          
         new_comment.save_comment()
-        return redirect(url_for('.index',uname=current_user.username))
+        return redirect(url_for('.index',uname=current_user.username, id=current_user.id))
     return render_template('comment.html', title = title, comment_form = form,blogs=blogs)
 
 @main.route('/subscribe', methods = ['GET','POST'])

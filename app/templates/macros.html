@@ -3,7 +3,7 @@
 
     <h3>{{ blogs.title}}</h3>
     <p>{{blogs.post}}</p>
-
+    <a class="btn btn-primary btn-success" href="{{url_for('main.new_comment',id =blogs.id)}}">comment</a>
 </div>
 
 {% endfor %} {% endmacro %}

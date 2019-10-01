@@ -74,7 +74,10 @@ class Comments(db.Model):
     id = db.Column(db.Integer, primary_key = True)
     feedback = db.Column(db.String)
     blogger_id = db.Column(db.Integer, db.ForeignKey('blogger.id'))
-    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))    
+    blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))  
+    
+    def __repr__(self):
+        return f'Blogger {self.username}'  
     
     def save_comment(self):
         '''
@@ -95,10 +98,10 @@ class Quote:
     '''
     class quote to define quote's Objects
     '''
-    def __init__(self, author,kote):
+    def __init__(self, author,quote):
         # self.id = id
         self.author = author
-        self.kote = kote
+        self.quote = quote
         
 class Subscribe(db.Model):
     __tablename__='subscribe'
