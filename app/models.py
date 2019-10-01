@@ -62,7 +62,7 @@ class Blog(db.Model):
         Blog.all_blogs.clear()    
         
     def get_blog(id):
-        blog = Blog.query.filter_by().all_blogs
+        blog = Blog.query.filter_by().all()
         return blog
     
     

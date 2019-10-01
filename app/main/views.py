@@ -7,18 +7,20 @@ from .. import db
 import markdown2
 
 #views
-@main.route('/')
+@main.route('/' , methods=['GET', 'POST'])
 def index():
     '''
     view root page function that returns the index page and its data
     '''
-    form = BlogForm()
     
-    if form.validate_on_submit:
-        # content = form.content.data
-        post = form.post.data
     blog = Blog.query.all()
-    return render_template('index.html', current_user = current_user,blog=blog)
+    # form = BlogForm()
+    
+    # if form.validate_on_submit:
+    #     # content = form.content.data
+    #     post = form.post.data
+        
+    return render_template('index.html',blog=blog)
 
 #adding a new blog
 @main.route('/add/blog', methods=['GET', 'POST'])
@@ -28,6 +30,7 @@ def nu_blog():
     function to insert or add new blog and fetch data from them
     '''
     form = BlogForm()
+    
     blog = Blog.query.filter_by(id= current_user.id).all()
     post = Blog.query.filter_by(id = current_user.id).first()
     # blogger = blogger.query.filter_by(id = current_user.id).first()
@@ -37,12 +40,12 @@ def nu_blog():
         abort(404)
     
     if form.validate_on_submit():
-        # title = form.title.data
+        title = form.title.data
         post = form.post.data
-        nu_blog = Blog( post=post)
+        nu_blog = Blog( post=post, title = title)
         nu_blog.save_blogz()
         return redirect(url_for('main.index'))
-    return render_template('blog.html', title= title,blog_form=form, blog = blog)
+    return render_template('blog.html',blog_form=form, blog = blog)
 
 #viewing a pitch with it's comments
 @main.route('/blog/view_blog/<int:id>', methods =['GET', 'POST'])

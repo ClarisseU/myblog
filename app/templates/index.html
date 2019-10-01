@@ -18,10 +18,7 @@
         <div class="container">
             <div class="content">
                 <h3>POSTS</h3>
-                {{macro.displayBlogList(blog)}} {% for blog in blog_list %}
-                <li>{{blog.post}}</li>
-                <p><a href="/blog/view_blog/{{blog.id}}">check..</a></p>
-                {% endfor %}
+                {{macro.displayBlogList(blog)}}
             </div>
         </div>
         <div class="container">
@@ -30,7 +27,7 @@
         </div>
         <div class='row'>
             <div class='col-md-6'>
-                {% for blog in blog_list %} {{blog.blogz}} {% endfor %}
+                <!-- {% for blog in blog_list %} {{blog.blogz}} {% endfor %} -->
             </div>
         </div>
     </div>
