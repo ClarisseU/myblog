@@ -105,5 +105,9 @@ class Subscribe(db.Model):
     
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(255))
-    posted = db.Column(db.DateTime, default = datetime.utcnow)           
+    posted = db.Column(db.DateTime, default = datetime.utcnow) 
+    
+    def save_sub(self):
+        db.session.add(self)
+        db.session.commit()          
       

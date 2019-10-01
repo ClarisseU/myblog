@@ -1,7 +1,7 @@
 {% macro displayBlogList(blog) %} {% for blogs in blog %}
-<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 movie-card">
+<div class="col-xs-12 col-sm-4 col-md-2 col-lg-2 movie-card" style="border-block-color: pink">
 
-    <p>{{ blogs.title}}</p>
+    <h3>{{ blogs.title}}</h3>
     <p>{{blogs.post}}</p>
 
 </div>

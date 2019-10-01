@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% import 'macros.html' as macro %}{% block styles %}{{super()}}
+{% extends "base.html" %} {% import "bootstrap/wtf.html" as wtf %} {% import 'macros.html' as macro %}{% block styles %}{{super()}}
 <!--super() function tells Jinja not to override any code that is defined in the block-->
 <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}"> {% endblock %}
 <br> {% block content %}{{macro.displayBlogList(blog_list)}}
@@ -10,14 +10,14 @@
                 <br>
                 <br>
                 <div class="col-md-6">
-                    <p style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share them with you, feel free to naviguate through and leave some comments! </strong>
+                    <p class="jumbotron" style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share them with you, feel free to naviguate through and leave some comments! </strong>
                 </div>
             </div>
         </div>
 
         <div class="container">
             <div class="content">
-                <h3>POSTS</h3>
+                <h3><strong>POSTS</strong></h3>
                 {{macro.displayBlogList(blog)}}
             </div>
         </div>
@@ -27,7 +27,7 @@
         </div>
         <div class='row'>
             <div class='col-md-6'>
-                <!-- {% for blog in blog_list %} {{blog.blogz}} {% endfor %} -->
+                {{wtf.quick_form(subscribe_form)}}
             </div>
         </div>
     </div>

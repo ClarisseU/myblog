@@ -14,13 +14,18 @@ def index():
     '''
     
     blog = Blog.query.all()
-    # form = BlogForm()
+    form = SubscribeForm()
     
-    # if form.validate_on_submit:
-    #     # content = form.content.data
-    #     post = form.post.data
+    if form.validate_on_submit():
+        email = form.email.data
+        # date = form.date.data
         
-    return render_template('index.html',blog=blog)
+        nu_sub = Subscribe(email=email)
+        
+        nu_sub.save_sub()
+        return redirect(url_for('sub'))
+        
+    return render_template('index.html',blog=blog, subscribe_form=form)
 
 #adding a new blog
 @main.route('/add/blog', methods=['GET', 'POST'])
