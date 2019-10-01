@@ -66,7 +66,37 @@ def view_blog(id):
     if blogz is None:
         abort(404)
         
-    return render_template('blog.html',blogz=blogz)    
+    return render_template('blog.html',blogz=blogz) 
+
+@main.route('/delete_blog/<int:id>',methods = ['GET','POST'])
+@login_required
+def delete_blog(id):
+    blog = Blog.query.filter_by(id=id).first()
+    comments = blog.comment
+    if blog.comment:
+        for comment in comment:
+            db.session.delete(comment)
+            db.session.commit()
+            blogger = current_user
+            db.session.delete(blog)
+            db.session.commit()
+            
+        return redirect(url_for('.profile',uname = blogger.username)) 
+    return render_template('profile/profile.html', blogger=blogger)
+
+@main.route('/profile/update/<int:id>', methods = ['GET','POST'])
+@login_required
+def update_blog(id):
+    bloggers = Blog.query.filter_by(id=id).first()
+    
+    blogger = current_user
+    if form.validate_on_submit():
+        bloggers.title = form.title.data
+        bloggers.
+        db.session.add(bloggers)
+        db.session.commit()
+    return redirect(url_for('.profile'))    
+          
  
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
@@ -122,6 +152,9 @@ def new_comment(id):
     
     user = Blogger.query.filter_by().first()
     title=f'welcome to blogs comments'
+    
+    if user is None:
+        abort(404)
         
     if form.validate_on_submit():
         feedback = form.feedback.data

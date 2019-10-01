@@ -65,6 +65,10 @@ class Blog(db.Model):
         blog = Blog.query.filter_by().all()
         return blog
     
+    def delete_blog(self):
+        db.session.delete(self)
+        de.session.commit()
+    
     
 class Comments(db.Model):
     '''
