@@ -7,7 +7,7 @@ class TestBlog(unittest.TestCase):
     
     def setUp(self):
         self.blogger_me = Blogger(username = "Clarisse", password="123", email = "klaryc4@gmail.com")
-        self.new_blog = Blog(title="live love laugh", post="nice", author="Clarisse")
+        self.new_blog = Blog(title="live love laugh", post="nice")
         
     def test_instance(self):
         self.assertTrue(isinstance(self.new_blog, Blog))

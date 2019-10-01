@@ -73,11 +73,10 @@ class Comments(db.Model):
     __tablename__='comments'
     id = db.Column(db.Integer, primary_key = True)
     feedback = db.Column(db.String)
-    blogger_id = db.Column(db.Integer, db.ForeignKey('blogger.id'))
+    # blogger_id = db.Column(db.Integer, db.ForeignKey('blogger.id'))
     blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))  
     
-    def __repr__(self):
-        return f'Blogger {self.username}'  
+   
     
     def save_comment(self):
         '''
@@ -92,7 +91,9 @@ class Comments(db.Model):
         function to get the comment
         '''
         comment = Comments.query.filter_by().all()
-        return comment      
+        # return comment 
+    def __repr__(self):
+        return f' {self.feedback}'       
     
 class Quote:
     '''
