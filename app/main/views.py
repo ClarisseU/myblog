@@ -1,4 +1,4 @@
-from flask import render_template,request,redirect,url_for,abort
+from flask import render_template,request,redirect,url_for,abort, flash
 from . import main
 from flask_login import login_required, current_user
 from ..models import Blogger, Blog, Comments, Subscribe
@@ -52,7 +52,7 @@ def nu_blog():
         nu_blog = Blog( post=post, title = title)
         nu_blog.save_blogz()
         return redirect(url_for('main.index'))
-    return render_template('blog.html',blog_form=form, blog = blog)
+    return render_template('blog.html',form=form, blog = blog)
 
 #viewing a pitch with it's comments
 @main.route('/blog/view_blog/<int:id>', methods =['GET', 'POST'])
@@ -72,7 +72,7 @@ def view_blog(id):
 @login_required
 def delete_blog(id):
     blog = Blog.query.filter_by(id=id).first()
-    comments = blog.comment
+    comment = blog.comment
     if blog.comment:
         for comment in comment:
             db.session.delete(comment)
@@ -81,8 +81,8 @@ def delete_blog(id):
             db.session.delete(blog)
             db.session.commit()
             
-        return redirect(url_for('.profile',uname = blogger.username)) 
-    return render_template('profile/profile.html', blogger=blogger)
+        return redirect(url_for('.index', id =id)) 
+    return render_template('profile/profile.html', id = id)
 
 @main.route('/profile/update/<int:id>', methods = ['GET','POST'])
 @login_required
@@ -92,12 +92,12 @@ def update_blog(id):
     # blogger = current_user
     if form.validate_on_submit():
         blogs.title = form.title.data
-        blogs.content
+        blogs.post
         db.session.add(blogs)
         db.session.commit()
         flash('Your post has been updated')
-        return redirect(url_for('.profile', id =id))
-    return render_template('profile/update.html', form = form,blog=blog)
+        return redirect(url_for('.index', id =id))
+    return render_template('blog.html', form = form,blog=blogs)
 
     
           
@@ -105,7 +105,7 @@ def update_blog(id):
 @main.route('/user/<uname>/update',methods = ['GET','POST'])
 @login_required
 def update_profile(uname):
-    user = User.query.filter_by(username = uname).first()
+    user = Blogger.query.filter_by(username = uname).first()
     if user is None:
         abort(404)
 
@@ -124,11 +124,11 @@ def update_profile(uname):
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
 def update_pic(uname):
-    user = User.query.filter_by(username = uname).first()
+    blogger = Blogger.query.filter_by(username = uname).first()
     if 'photo' in request.files:
         filename = photos.save(request.files['photo'])
         path = f'photos/{filename}'
-        user.profile_pic_path = path
+        blogger.profile_pic_path = path
         db.session.commit()
     return redirect(url_for('main.profile',uname=uname))
 
@@ -137,12 +137,12 @@ def profile(uname):
     '''
     a function to hold profile
     '''
-    user = Blogger.query.filter_by(username = uname).first()
+    blogger= Blogger.query.filter_by(username = uname).first()
 
     if user is None:
         abort(404)
 
-    return render_template("profile/profile.html", user = user)
+    return render_template("profile/profile.html", blogger = current_user)
 
 #adding comments
 @main.route('/new_comment/<int:id>', methods=['GET','POST'])

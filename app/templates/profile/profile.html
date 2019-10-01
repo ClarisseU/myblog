@@ -3,19 +3,19 @@
     <div class="row">
         <!-- displaying  Username-->
         <div class="col-md-4">
-            <h3> {{user.username| capitalize}} </h3>
+            <h3> {{blogger.username| capitalize}} </h3>
 
             <!--Displaying user bio-->
-            {% if user.bio %}
-            <p> {{user.bio}}</p>
+            {% if blogger.bio %}
+            <p> {{blogger.bio}}</p>
             {%else%}
-            <p> {{user.username| capitalize}} has no bio </p>
+            <p> {{blogger.username| capitalize}} has no bio </p>
             {% endif %}
         </div>
 
         <!--Display profile photo-->
         <div class="col-md-4">
-            {% if user.profile_pic_path %}
+            {% if blogger.profile_pic_path %}
 
             <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail"> {%else%}
             <p>No profile picture</p>

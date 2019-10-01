@@ -29,7 +29,7 @@ def logout():
     '''
     function to log out the blogger
     '''
-    logout_blogger()
+    logout_user()
     return redirect(url_for("main.index"))
 
 @auth.route('/register',methods = ["GET","POST"])

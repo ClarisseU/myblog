@@ -5,50 +5,45 @@
 <div>
     <div class="container-fluid" style="font-family: 'Lato', sans serif;">
         <div class="row">
+            <div class="col-md-6">
 
-            <div class="container" id="block-text">
-                <br>
-                <br>
-                <div class="col-md-6">
-                    <p class="jumbotron" style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share them with you, feel free to naviguate through and leave some comments! </strong>
+                <div class="container" id="block-text">
+                    <br>
+                    <br>
+                    <div class="col-md-6">
+                        <p class="jumbotron" style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share them with you, feel free to naviguate through and leave some comments! </strong>
+                    </div>
+                </div>
+
+
+                <div class="container">
+                    <div style="border-style: solid; color:rgb(247, 159, 174)">
+                        <p style="color:black">{{kote.quote}}</p>
+                        <p style="color:black">{{kote.author}}</p>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="content">
+                        <h3><strong>POSTS</strong></h3>
+                        {{macro.displayBlogList(blog)}}
+
+                    </div>
                 </div>
             </div>
-
-
-            <div class="container">
-                <div style="border-style: solid; color:rgb(247, 159, 174)">
-                    <p style="color:black">{{kote.quote}}</p>
-                    <p style="color:black">{{kote.author}}</p>
-                </div>
-            </div>
-            <div class="container">
-                <div class="content">
-                    <h3><strong>POSTS</strong></h3>
-                    {{macro.displayBlogList(blog)}}
-
-                </div>
+            <div class="col-md-6" style="border-style: solid; color:rgb(247, 159, 174); justify-content:right">
+                <img src="https://i0.wp.com/blackdoctor.org/wp-content/uploads/2016/03/thinkstockphotos-508467142-e1458148606977.jpg?resize=725%2C483&quality=50&strip=all&ssl=1" width="520" height="420"><br><br>
+                <img src="https://ak7.picdn.net/shutterstock/videos/7209397/thumb/9.jpg" width="520" height="420">
             </div>
         </div>
     </div>
     <div class="container">
         <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
-    </div>
-    <div class='row'>
-        <div class='col-md-6'>
-            {{wtf.quick_form(subscribe_form)}}
+
+        <div class='row'>
+            <div class='col-md-6'>
+                {{wtf.quick_form(subscribe_form)}}
+            </div>
         </div>
     </div>
 </div>
 {% endblock%}
-
-<!-- <div class='row'>
-            <p>
-                {{macro.displayBlogList(blog_list)}} {% for blog in blog_list %} {{blog.blogz}} {% endfor %}
-            </p>
-            <ul class="border-border-danger">
-                <li><a href="/blog/view_blog/">View blogs</a></li>
-                <li><a href="">leave a comment</a></li>
-            </ul>
-
-            <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
-        </div> -->
