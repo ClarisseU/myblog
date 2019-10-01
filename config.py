@@ -4,7 +4,7 @@ class Config:
     '''
     General configuration parent class
     '''
-    QUOTE_API_BASE_URL = 'http://quotes.stormconsultancy.co.uk/random.json (Links to an external site.)'
+    QUOTE_API_BASE_URL = 'http://quotes.stormconsultancy.co.uk/random.json'
     SQLALCHEMY_DATABASE_URI = 'postgresql+psycopg2://clarisse:1234@localhost/myblog'
     SECRET_KEY='123'
     # UPLOADED_PHOTOS_DEST ='app/static/photos'

@@ -95,10 +95,10 @@ class Quote:
     '''
     class quote to define quote's Objects
     '''
-    def __init__(self, id, author,quote):
-        self.id = id
+    def __init__(self, author,kote):
+        # self.id = id
         self.author = author
-        self.quote = quote 
+        self.kote = kote
         
 class Subscribe(db.Model):
     __tablename__='subscribe'

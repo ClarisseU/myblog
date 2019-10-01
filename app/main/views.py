@@ -5,6 +5,7 @@ from ..models import Blogger, Blog, Comments, Subscribe
 from .forms import UpdateProfile,BlogForm, CommentForm,SubscribeForm
 from .. import db
 import markdown2
+from ..requests import getQuotes
 
 #views
 @main.route('/' , methods=['GET', 'POST'])
@@ -15,6 +16,7 @@ def index():
     
     blog = Blog.query.all()
     form = SubscribeForm()
+    kote = getQuotes()
     
     if form.validate_on_submit():
         email = form.email.data
@@ -25,7 +27,7 @@ def index():
         nu_sub.save_sub()
         return redirect(url_for('sub'))
         
-    return render_template('index.html',blog=blog, subscribe_form=form)
+    return render_template('index.html',blog=blog, subscribe_form=form, kote = kote)
 
 #adding a new blog
 @main.route('/add/blog', methods=['GET', 'POST'])
