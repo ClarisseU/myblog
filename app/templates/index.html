@@ -14,14 +14,14 @@
                         <p class="jumbotron" style="font-size: 20px; float:right;"> <strong> Welcome to my personal blog, here's some interesting posts which inspires me and i thought i can share them with you, feel free to naviguate through and leave some comments! </strong>
                     </div>
                 </div>
-
-
                 <div class="container">
                     <div style="border-style: solid; color:rgb(247, 159, 174)">
-                        <p style="color:black">{{kote.quote}}</p>
-                        <p style="color:black">{{kote.author}}</p>
+                        <p style="color:black">{{quote.quote}}</p>
+                        <p style="color:black">{{quote.author}}</p>
                     </div>
                 </div>
+
+
                 <div class="container">
                     <div class="content">
                         <h3><strong>POSTS</strong></h3>
@@ -36,14 +36,5 @@
             </div>
         </div>
     </div>
-    <div class="container">
-        <a class="btn btn-primary btn-success text-center text-success" href="/add/blog">add a new blog</a>
 
-        <div class='row'>
-            <div class='col-md-6'>
-                {{wtf.quick_form(subscribe_form)}}
-            </div>
-        </div>
-    </div>
-</div>
-{% endblock%}
+    {% endblock%}

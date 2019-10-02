@@ -23,11 +23,11 @@ def index():
         # date = form.date.data
         
         nu_sub = Subscribe(email=email)
-        
+    
         nu_sub.save_sub()
         return redirect(url_for('sub'))
         
-    return render_template('index.html',blog=blog, subscribe_form=form, kote = quote)
+    return render_template('index.html',blog=blog, subscribe_form=form,quote=quote)
 
 #adding a new blog
 @main.route('/add/blog', methods=['GET', 'POST'])
@@ -75,14 +75,11 @@ def delete_blog(id):
     comment = blog.comment
     if blog.comment:
         for comment in comment:
-            db.session.delete(comment)
-            db.session.commit()
-            blogger = current_user
             db.session.delete(blog)
             db.session.commit()
             
         return redirect(url_for('.index', id =id)) 
-    return render_template('profile/profile.html', id = id)
+    return render_template('index.html', id = id)
 
 @main.route('/profile/update/<int:id>', methods = ['GET','POST'])
 @login_required
@@ -119,7 +116,7 @@ def update_profile(uname):
 
         return redirect(url_for('.profile',uname=user.username))
 
-    return render_template('profile/update.html',form =form)
+    return render_template('profile/update.html',form =form,user=user)
 
 @main.route('/user/<uname>/update/pic',methods= ['POST'])
 @login_required
